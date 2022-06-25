@@ -1,9 +1,31 @@
+import { useNavigation } from '@react-navigation/native';
 import IconButton from './ui/IconButton';
 import Button from './ui/Button';
 import { Text, View, StyleSheet } from 'react-native';
 import { colors } from '../utils/colors';
 
 const CustomTabBarList = () => {
+	const navigation = useNavigation();
+
+	const tabBarButtonNavigationHandler = name => {
+		switch (name) {
+			case '7Days':
+				navigation.navigate('Last7DaysExpenses');
+				break;
+			case '14Days':
+				navigation.navigate('Last14DaysExpenses');
+				break;
+			case 'allDays':
+				navigation.navigate('Expenses');
+				break;
+			case 'add':
+				navigation.navigate('AddExpense');
+				break;
+			default:
+				break;
+		}
+	};
+
 	return (
 		<>
 			<View style={styles.tabBarLeft}>
@@ -26,15 +48,21 @@ const CustomTabBarList = () => {
 					iconName='add-sharp'
 					iconSize={40}
 					style={{ height: 60, width: 60 }}
-					onPress={() => {}}
+					onPress={tabBarButtonNavigationHandler.bind(this, 'add')}
 				/>
 			</View>
 			<View style={styles.tabBarRight}>
 				<Text style={styles.tabBarText}>Filtering last:</Text>
 				<View style={styles.tabBarButtons}>
-					<Button onPress={() => {}}>7 Days</Button>
-					<Button onPress={() => {}}>14 Days</Button>
-					<Button onPress={() => {}}>All Days</Button>
+					<Button onPress={tabBarButtonNavigationHandler.bind(this, '7Days')}>
+						7 Days
+					</Button>
+					<Button onPress={tabBarButtonNavigationHandler.bind(this, '14Days')}>
+						14 Days
+					</Button>
+					<Button onPress={tabBarButtonNavigationHandler.bind(this, 'allDays')}>
+						All Days
+					</Button>
 				</View>
 			</View>
 		</>

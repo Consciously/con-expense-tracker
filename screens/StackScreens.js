@@ -12,13 +12,7 @@ const StackScreens = () => {
 			}}
 		>
 			<Stack.Screen name='TabScreens' component={TabScreens} />
-			<Stack.Screen
-				name='AddExpense'
-				component={AddExpenseScreen}
-				options={{
-					presentation: 'transparentModal'
-				}}
-			/>
+			<Stack.Screen name='AddExpense' component={AddExpenseScreen} />
 		</Stack.Navigator>
 	);
 };

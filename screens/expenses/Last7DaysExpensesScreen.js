@@ -1,10 +1,11 @@
 import { Text, View } from 'react-native';
+import Layout from '../../components/ui/Layout';
 
 const Last7DaysExpenseScreen = () => {
 	return (
-		<View>
+		<Layout>
 			<Text>This is the last 7 days expense screen</Text>
-		</View>
+		</Layout>
 	);
 };
 

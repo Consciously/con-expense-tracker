@@ -1,10 +1,11 @@
 import ExpensesList from '../../components/expenses/ExpensesList';
 import Layout from '../../components/ui/Layout';
+import { expensesData } from '../../data/expensesData';
 
 const ExpensesScreen = () => {
 	return (
 		<Layout>
-			<ExpensesList />
+			<ExpensesList expensesData={expensesData} />
 		</Layout>
 	);
 };

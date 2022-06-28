@@ -12,7 +12,7 @@ const ExpenseItem = ({ name, date, quantity, amount }) => {
 				<View style={styles.expenseIemRight}>
 					<Text style={styles.expenseItemText}>{getFormattedDate(date)}</Text>
 					<Text style={styles.expenseItemText}>{quantity}</Text>
-					<Text style={styles.expenseItemText}>{amount}</Text>
+					<Text style={styles.expenseItemText}>$ {amount}</Text>
 				</View>
 			</View>
 		</View>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 	expenseItemLeft: {
 		flexDirection: 'row',
 		flex: 1,
-		justifyContent: 'center',
+		justifyContent: 'flex-start',
 		alignItems: 'center',
 		marginRight: 8
 	},

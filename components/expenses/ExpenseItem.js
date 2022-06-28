@@ -2,15 +2,15 @@ import { Text, View, StyleSheet } from 'react-native';
 import { colors } from '../../utils/colors';
 import { getFormattedDate } from '../../utils/date';
 
-const ExpenseItem = ({ name, date, quantity, amount }) => {
+const ExpenseItem = ({ description, date, quantity, amount }) => {
 	return (
 		<View style={styles.expenseItemOuter}>
 			<View style={styles.expenseItemInner}>
 				<View style={styles.expenseItemLeft}>
-					<Text style={styles.expenseItemText}>{name}</Text>
+					<Text style={styles.expenseItemText}>{description}</Text>
 				</View>
 				<View style={styles.expenseIemRight}>
-					<Text style={styles.expenseItemText}>{getFormattedDate(date)}</Text>
+					<Text style={styles.expenseItemText}>{date}</Text>
 					<Text style={styles.expenseItemText}>{quantity}</Text>
 					<Text style={styles.expenseItemText}>$ {amount}</Text>
 				</View>

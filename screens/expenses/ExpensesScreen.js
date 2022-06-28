@@ -1,11 +1,13 @@
-import ExpensesList from '../../components/expenses/ExpensesList';
+import { useContext, useEffect } from 'react';
+import { ExpensesContext } from '../../store/expenses-context';
 import Layout from '../../components/ui/Layout';
-import { expensesData } from '../../data/expensesData';
+import ExpensesList from '../../components/expenses/ExpensesList';
 
 const ExpensesScreen = () => {
+	const expensesCtx = useContext(ExpensesContext);
 	return (
 		<Layout>
-			<ExpensesList expensesData={expensesData} />
+			<ExpensesList expensesData={expensesCtx.expenses} />
 		</Layout>
 	);
 };

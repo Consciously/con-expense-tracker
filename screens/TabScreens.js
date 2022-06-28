@@ -1,3 +1,5 @@
+import { useEffect, useContext } from 'react';
+import { ExpensesContext } from '../store/expenses-context';
 import { StyleSheet, View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -6,6 +8,7 @@ import Last7DaysExpensesScreen from './expenses/Last7DaysExpensesScreen';
 import Last14DaysExpensesScreen from './expenses/Last14DaysExpensesScreen';
 import CustomTabBar from '../components/ui/CustomTabBar';
 import { colors } from '../utils/colors';
+import { fetchExpenses } from '../utils/http';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,6 +21,20 @@ const HeaderTabBar = ({ title, style }) => {
 };
 
 const TabScreens = () => {
+	const expensesCtx = useContext(ExpensesContext);
+	useEffect(() => {
+		const getExpenses = async () => {
+			try {
+				const expenses = await fetchExpenses();
+				expensesCtx.setExpenses(expenses);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+
+		getExpenses();
+	}, []);
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<Tab.Navigator

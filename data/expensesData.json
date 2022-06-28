@@ -1,0 +1,64 @@
+{
+	"expenses": {
+		"b4da0920-7f5b-499b-ada2-3e1676acbd05": {
+			"description": "First expense item aka number two",
+			"date": "2022-06-12",
+			"quantity": 2,
+			"amount": 34.56
+		},
+		"7de34cea-e7fd-4dad-b314-2901278882b8": {
+			"description": "Second expense item aka number two",
+			"date": "2022-06-13",
+			"quantity": 2,
+			"amount": 34.56
+		},
+		"cb95ef7c-4e10-4398-8aad-7ffb9d6f9112": {
+			"description": "aka number three",
+			"date": "2022-06-14",
+			"quantity": 2,
+			"amount": 34.56
+		},
+		"56bec049-d5ef-41ae-9260-79be0972c094": {
+			"description": "fourth expense item aka number four",
+			"date": "2022-06-15",
+			"quantity": 2,
+			"amount": 34.56
+		},
+		"0d1aa157-2e4f-414b-a640-88dd9d41bad0": {
+			"description": "fifth expense item aka number five",
+			"date": "2022-06-16",
+			"quantity": 2,
+			"amount": 34.56
+		},
+		"57de868f-2d31-4234-ab6f-eda16d39526f": {
+			"description": "fifth expense item aka number five",
+			"date": "2022-06-17",
+			"quantity": 2,
+			"amount": 34.56
+		},
+		"ae726f20-ffac-4672-9043-026f227abe07": {
+			"description": "seventh expense item aka number seven",
+			"date": "2022-06-18",
+			"quantity": 2,
+			"amount": 34.56
+		},
+		"e4aafd06-8174-4fa2-8d31-a7292b473e16": {
+			"description": "eighth expense item aka number eight",
+			"date": "2022-06-19",
+			"quantity": 2,
+			"amount": 34.56
+		},
+		"0e7b9e7a-9462-4cc2-9a1b-bcb6b84d11e3": {
+			"description": "ninth expense item aka number nine",
+			"date": "2022-06-20",
+			"quantity": 2,
+			"amount": 34.56
+		},
+		"09631a60-9f10-430e-b231-8e69f3477824": {
+			"description": "tenth expense item aka number ten",
+			"date": "2022-06-21",
+			"quantity": 2,
+			"amount": 34.56
+		}
+	}
+}

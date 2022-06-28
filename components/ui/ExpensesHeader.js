@@ -4,7 +4,7 @@ import { colors } from '../../utils/colors';
 const ExpensesHeader = () => {
 	return (
 		<View style={styles.expensesHeaderContainer}>
-			<Text style={styles.expensesHeaderText}>Name</Text>
+			<Text style={styles.expensesHeaderText}>Description</Text>
 			<Text style={styles.expensesHeaderText}>Date</Text>
 			<Text style={styles.expensesHeaderText}>Quantity</Text>
 			<Text style={styles.expensesHeaderText}>Amount</Text>

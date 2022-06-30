@@ -1,15 +1,11 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import AddExpense from '../../components/expenses/AddExpense';
+import { colors } from '../../utils/colors';
 
-const AddExpenseScreen = ({ navigation }) => {
+const AddExpenseScreen = () => {
 	return (
 		<View style={styles.container}>
-			<Text>This is the add expense screen</Text>
-			<Button
-				title='Cancel'
-				onPress={() => {
-					navigation.goBack();
-				}}
-			/>
+			<AddExpense />
 		</View>
 	);
 };
@@ -21,6 +17,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#2B629E'
+		backgroundColor: colors.primaryShades.primary100
 	}
 });

@@ -1,14 +1,25 @@
+import { useContext } from 'react';
+import { ExpensesContext } from '../../store/expenses-context';
 import { StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../utils/colors';
 
 const ExpensesSummary = () => {
+	const expensesCtx = useContext(ExpensesContext);
+
+	const expensesCount = expensesCtx.expenses?.reduce(
+		(expenses, expenseItem) => {
+			return expenses + expenseItem.amount;
+		},
+		0
+	);
+
 	return (
 		<View style={styles.expensesSummaryContainer}>
 			<View style={styles.expenseSummaryLeft}>
 				<Text style={styles.expensesSummaryText}>Summary</Text>
 			</View>
 			<View style={styles.expensesSummaryRight}>
-				<Text style={styles.expensesSummaryText}>$ 1234.56</Text>
+				<Text style={styles.expensesSummaryText}>$ {expensesCount}</Text>
 			</View>
 		</View>
 	);

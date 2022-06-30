@@ -54,13 +54,22 @@ const CustomTabBarList = () => {
 			<View style={styles.tabBarRight}>
 				<Text style={styles.tabBarText}>Filtering last:</Text>
 				<View style={styles.tabBarButtons}>
-					<Button onPress={tabBarButtonNavigationHandler.bind(this, '7Days')}>
+					<Button
+						style={styles.tabBarButton}
+						onPress={tabBarButtonNavigationHandler.bind(this, '7Days')}
+					>
 						7 Days
 					</Button>
-					<Button onPress={tabBarButtonNavigationHandler.bind(this, '14Days')}>
+					<Button
+						style={styles.tabBarButton}
+						onPress={tabBarButtonNavigationHandler.bind(this, '14Days')}
+					>
 						14 Days
 					</Button>
-					<Button onPress={tabBarButtonNavigationHandler.bind(this, 'allDays')}>
+					<Button
+						style={styles.tabBarButton}
+						onPress={tabBarButtonNavigationHandler.bind(this, 'allDays')}
+					>
 						All Days
 					</Button>
 				</View>
@@ -101,5 +110,11 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-evenly',
 		alignItems: 'center',
 		marginRight: 0
+	},
+	tabBarButton: {
+		borderRadius: 100,
+		width: 45,
+		height: 45,
+		backgroundColor: colors.primaryShades.primary800
 	}
 });

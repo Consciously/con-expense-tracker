@@ -2,7 +2,8 @@ import { createContext, useReducer } from 'react';
 
 export const ExpensesContext = createContext({
 	expenses: [],
-	setExpenses: expenses => {}
+	setExpenses: expenses => {},
+	addExpense: expenseData => {}
 });
 
 const ExpensesContextProvider = ({ children }) => {
@@ -10,6 +11,8 @@ const ExpensesContextProvider = ({ children }) => {
 		switch (action.type) {
 			case 'SET':
 				return action.payload;
+			case 'ADD':
+				return [...state, action.payload];
 			default:
 				return state;
 		}
@@ -21,9 +24,14 @@ const ExpensesContextProvider = ({ children }) => {
 		dispatch({ type: 'SET', payload: expenses });
 	};
 
+	const addExpense = expenseData => {
+		dispatch({ type: 'ADD', payload: expenseData });
+	};
+
 	const value = {
 		expenses: expensesState,
-		setExpenses: setExpenses
+		setExpenses,
+		addExpense
 	};
 	return (
 		<ExpensesContext.Provider value={value}>

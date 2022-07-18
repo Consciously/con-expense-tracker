@@ -55,19 +55,25 @@ const CustomTabBarList = () => {
 				<Text style={styles.tabBarText}>Filtering last:</Text>
 				<View style={styles.tabBarButtons}>
 					<Button
-						style={styles.tabBarButton}
+						buttonColor='primary'
+						buttonSize='square'
+						isCircle={true}
 						onPress={tabBarButtonNavigationHandler.bind(this, '7Days')}
 					>
 						7 Days
 					</Button>
 					<Button
-						style={styles.tabBarButton}
+						buttonColor='primary'
+						buttonSize='square'
+						isCircle={true}
 						onPress={tabBarButtonNavigationHandler.bind(this, '14Days')}
 					>
 						14 Days
 					</Button>
 					<Button
-						style={styles.tabBarButton}
+						buttonColor='primary'
+						buttonSize='square'
+						isCircle={true}
 						onPress={tabBarButtonNavigationHandler.bind(this, 'allDays')}
 					>
 						All Days

@@ -91,19 +91,15 @@ const AddExpense = () => {
 			/>
 			<View style={styles.buttons}>
 				<Button
-					style={[
-						styles.button,
-						{ backgroundColor: colors.grayShades.grayRed, marginRight: 4 }
-					]}
+					buttonColor='secondary'
+					buttonSize='large'
 					onPress={cancelHandler}
 				>
 					CANCEL
 				</Button>
 				<Button
-					style={[
-						styles.button,
-						{ backgroundColor: colors.grayShades.gray500, marginLeft: 4 }
-					]}
+					buttonColor='warning'
+					buttonSize='large'
 					onPress={submitHandler}
 				>
 					ADD EXPENSE

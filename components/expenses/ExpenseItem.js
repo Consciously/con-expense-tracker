@@ -1,20 +1,56 @@
 import { Text, View, StyleSheet } from 'react-native';
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import Animated, {
+	useSharedValue,
+	useAnimatedStyle,
+	withTiming
+} from 'react-native-reanimated';
 import { colors } from '../../utils/colors';
 import { getFormattedDate } from '../../utils/date';
+import EditButtons from '../EditButtons';
 
 const ExpenseItem = ({ description, date, quantity, amount }) => {
+	const END_POSITION = -200;
+	const onRight = useSharedValue(true);
+	const position = useSharedValue(0);
+
+	const panGesture = Gesture.Pan()
+		.onUpdate(e => {
+			if (onRight.value) {
+				position.value = e.translationX;
+			} else {
+				position.value = END_POSITION + e.translationX;
+			}
+		})
+		.onEnd(e => {
+			if (position.value < END_POSITION / 2) {
+				position.value = withTiming(END_POSITION, { duration: 100 });
+				onRight.value = false;
+			} else {
+				position.value = withTiming(0, { duration: 100 });
+				onRight.value = true;
+			}
+		});
+
+	const animatedStyle = useAnimatedStyle(() => ({
+		transform: [{ translateX: position.value }]
+	}));
+
 	return (
 		<View style={styles.expenseItemOuter}>
-			<View style={styles.expenseItemInner}>
-				<View style={styles.expenseItemLeft}>
-					<Text style={styles.expenseItemText}>{description}</Text>
-				</View>
-				<View style={styles.expenseIemRight}>
-					<Text style={styles.expenseItemText}>{date}</Text>
-					<Text style={styles.expenseItemText}>{quantity}</Text>
-					<Text style={styles.expenseItemText}>$ {amount}</Text>
-				</View>
-			</View>
+			<EditButtons />
+			<GestureDetector gesture={panGesture}>
+				<Animated.View style={[styles.expenseItemInner, animatedStyle]}>
+					<View style={styles.expenseItemLeft}>
+						<Text style={styles.expenseItemText}>{description}</Text>
+					</View>
+					<View style={styles.expenseIemRight}>
+						<Text style={styles.expenseItemText}>{date}</Text>
+						<Text style={styles.expenseItemText}>{quantity}</Text>
+						<Text style={styles.expenseItemText}>$ {amount}</Text>
+					</View>
+				</Animated.View>
+			</GestureDetector>
 		</View>
 	);
 };

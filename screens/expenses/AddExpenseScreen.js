@@ -1,11 +1,11 @@
 import { StyleSheet, View } from 'react-native';
-import AddExpense from '../../components/expenses/AddExpense';
+import AddExpenseFormik from '../../components/expenses/AddExpenseFormik';
 import { colors } from '../../utils/colors';
 
 const AddExpenseScreen = () => {
 	return (
 		<View style={styles.container}>
-			<AddExpense />
+			<AddExpenseFormik />
 		</View>
 	);
 };

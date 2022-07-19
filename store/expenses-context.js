@@ -3,7 +3,8 @@ import { createContext, useReducer } from 'react';
 export const ExpensesContext = createContext({
 	expenses: [],
 	setExpenses: expenses => {},
-	addExpense: expenseData => {}
+	addExpense: expenseData => {},
+	deleteExpense: id => {}
 });
 
 const ExpensesContextProvider = ({ children }) => {
@@ -13,6 +14,8 @@ const ExpensesContextProvider = ({ children }) => {
 				return action.payload;
 			case 'ADD':
 				return [...state, action.payload];
+			case 'DELETE':
+				return state.filter(expense => expense.id !== action.payload);
 			default:
 				return state;
 		}
@@ -28,10 +31,15 @@ const ExpensesContextProvider = ({ children }) => {
 		dispatch({ type: 'ADD', payload: expenseData });
 	};
 
+	const deleteExpense = id => {
+		dispatch({ type: 'DELETE', payload: id });
+	};
+
 	const value = {
 		expenses: expensesState,
 		setExpenses,
-		addExpense
+		addExpense,
+		deleteExpense
 	};
 	return (
 		<ExpensesContext.Provider value={value}>

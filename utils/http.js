@@ -11,7 +11,7 @@ export const fetchExpenses = async () => {
 		const expenseObj = {
 			expenseId: key,
 			description: response.data[key].description,
-			date: response.data[key].date,
+			createdAt: response.data[key].createdAt,
 			amount: response.data[key].amount
 		};
 

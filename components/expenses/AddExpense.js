@@ -5,6 +5,8 @@ import { ExpensesContext } from '../../store/expenses-context';
 import { colors } from '../../utils/colors';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
+import { getFormattedDate } from '../../utils/date';
+import ErrorOverlay from '../ui/ErrorOverlay';
 import { storeExpense } from '../../utils/http';
 
 const AddExpense = () => {
@@ -15,41 +17,69 @@ const AddExpense = () => {
 		quantity: '',
 		amount: ''
 	});
+
+	const [error, setError] = useState();
+
 	const navigation = useNavigation();
 
 	const inputsChangeHandler = (inputIdentifier, inputValue) => {
 		setInputs(currentInput => {
 			return {
 				...currentInput,
-				[inputIdentifier]: { value: inputValue }
+				[inputIdentifier]: inputValue
 			};
 		});
 	};
 
 	const submitHandler = async () => {
 		const expenseData = {
-			description: inputs.description.value,
-			date: inputs.date.value,
-			quantity: +inputs.quantity.value,
-			amount: +inputs.amount.value
+			description: inputs.description,
+			date: inputs.date,
+			quantity: +inputs.quantity,
+			amount: +inputs.amount
 		};
 
-		setInputs({
-			description: '',
-			date: '',
-			quantity: '',
-			amount: ''
-		});
+		console.log(expenseData);
 
-		const id = await storeExpense(expenseData);
-		expensesCtx.addExpense({ ...expenseData, id });
+		const descriptionIsValid = expenseData.description.trim().length > 0;
+		const dateIsValid = expenseData.date.toString() !== 'Invalid Date';
+		const quantityIsValid =
+			!isNaN(expenseData.quantity) && expenseData.quantity > 0;
+		const amountIsValid = !isNaN(expenseData.amount) && expenseData.amount > 0;
 
-		navigation.goBack();
+		if (
+			!descriptionIsValid ||
+			!dateIsValid ||
+			!quantityIsValid ||
+			!amountIsValid
+		) {
+			setError('You have to ether fill in the form or your inputs are invalid');
+		} else {
+			setInputs({
+				description: '',
+				date: '',
+				quantity: '',
+				amount: ''
+			});
+
+			const id = await storeExpense(expenseData);
+			expensesCtx.addExpense({ ...expenseData, id });
+
+			navigation.goBack();
+		}
+	};
+
+	const errorHandler = () => {
+		setError(null);
 	};
 
 	const cancelHandler = () => {
 		navigation.goBack();
 	};
+
+	if (error) {
+		return <ErrorOverlay message={error} onConfirm={errorHandler} />;
+	}
 
 	return (
 		<ScrollView
@@ -62,7 +92,7 @@ const AddExpense = () => {
 				inputConfig={{
 					keyboardType: 'default',
 					onChangeText: inputsChangeHandler.bind(this, 'description'),
-					value: inputs.description.value
+					value: inputs.description
 				}}
 			/>
 			<Input
@@ -70,7 +100,7 @@ const AddExpense = () => {
 				inputConfig={{
 					keyboardType: 'default',
 					onChangeText: inputsChangeHandler.bind(this, 'date'),
-					value: inputs.date.value
+					value: inputs.date
 				}}
 			/>
 			<Input
@@ -78,7 +108,7 @@ const AddExpense = () => {
 				inputConfig={{
 					keyboardType: 'number-pad',
 					onChangeText: inputsChangeHandler.bind(this, 'quantity'),
-					value: inputs.quantity.value
+					value: inputs.quantity
 				}}
 			/>
 			<Input
@@ -86,7 +116,7 @@ const AddExpense = () => {
 				inputConfig={{
 					keyboardType: 'numeric',
 					onChangeText: inputsChangeHandler.bind(this, 'amount'),
-					value: inputs.amount.value
+					value: inputs.amount
 				}}
 			/>
 			<View style={styles.buttons}>

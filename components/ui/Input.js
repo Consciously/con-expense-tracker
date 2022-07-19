@@ -1,11 +1,16 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { colors } from '../../utils/colors';
 
-const Input = ({ label, inputConfig }) => {
+const Input = ({ label, onChangeText, onBlur, value }) => {
 	return (
 		<View style={styles.inputControl}>
 			<Text style={styles.inputLabel}>{label}</Text>
-			<TextInput style={styles.inputText} {...inputConfig} />
+			<TextInput
+				style={styles.inputText}
+				onChangeText={onChangeText}
+				onBlur={onBlur}
+				value={value}
+			/>
 		</View>
 	);
 };

@@ -1,14 +1,18 @@
 import { View, StyleSheet } from 'react-native';
 import Button from './ui/Button';
 
-const EditButtons = ({ navigation, expenseId }) => {
+const EditButtons = ({ onNavigation, expenseId }) => {
 	return (
 		<View style={styles.editButtonsContainer}>
 			<View style={{ marginRight: 8 }}>
 				<Button
 					buttonColor='secondary'
 					buttonSize='medium'
-					onPress={() => navigation.navigate('AddExpense')}
+					onPress={() =>
+						onNavigation.navigate('AddExpense', {
+							expenseId
+						})
+					}
 				>
 					Edit
 				</Button>
@@ -17,7 +21,11 @@ const EditButtons = ({ navigation, expenseId }) => {
 			<Button
 				buttonColor='warning'
 				buttonSize='medium'
-				onPress={() => navigation.navigate('Expenses', { expenseId })}
+				onPress={() =>
+					onNavigation.navigate('DeletionExpense', {
+						expenseId
+					})
+				}
 			>
 				DELETE
 			</Button>

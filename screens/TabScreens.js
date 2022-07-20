@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ExpensesScreen from './expenses/ExpensesScreen';
 import Last7DaysExpensesScreen from './expenses/Last7DaysExpensesScreen';
 import Last14DaysExpensesScreen from './expenses/Last14DaysExpensesScreen';
+import DeletionExpenseScreen from './expenses/DeletionExpenseScreen';
 import CustomTabBar from '../components/ui/CustomTabBar';
 import { colors } from '../utils/colors';
 
@@ -47,6 +48,11 @@ const TabScreens = () => {
 				options={{
 					title: 'Last 14 Days'
 				}}
+			/>
+			<Tab.Screen
+				name='DeletionExpense'
+				component={DeletionExpenseScreen}
+				options={{ title: 'Delete Expense' }}
 			/>
 		</Tab.Navigator>
 	);

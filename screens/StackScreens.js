@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AddExpenseScreen from './expenses/AddExpenseScreen';
 import TabScreens from './TabScreens';
+
 import { colors } from '../utils/colors';
 
 const Header = ({ title, style }) => {

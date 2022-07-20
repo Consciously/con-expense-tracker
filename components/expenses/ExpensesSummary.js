@@ -19,7 +19,9 @@ const ExpensesSummary = () => {
 				<Text style={styles.expensesSummaryText}>Summary</Text>
 			</View>
 			<View style={styles.expensesSummaryRight}>
-				<Text style={styles.expensesSummaryText}>$ {expensesCount}</Text>
+				<Text style={styles.expensesSummaryText}>
+					$ {expensesCount.toFixed(2)}
+				</Text>
 			</View>
 		</View>
 	);

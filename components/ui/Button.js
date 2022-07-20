@@ -69,7 +69,8 @@ const styles = StyleSheet.create({
 			width: 2,
 			height: 2
 		},
-		shadowOpacity: 0.2
+		shadowOpacity: 0.2,
+		marginHorizontal: 8
 	},
 	text: {
 		textAlign: 'center',

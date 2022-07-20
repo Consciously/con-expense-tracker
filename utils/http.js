@@ -31,3 +31,7 @@ export const storeExpense = async expenseData => {
 
 	return id;
 };
+
+export const deleteExpense = async expenseId => {
+	return axios.delete(`${BACKEND_URL}/expenses/${expenseId}.json`);
+};

@@ -15,7 +15,7 @@ const ExpensesContextProvider = ({ children }) => {
 			case 'ADD':
 				return [...state, action.payload];
 			case 'DELETE':
-				return state.filter(expense => expense.id !== action.payload);
+				return state.filter(expense => expense.expenseId !== action.payload);
 			default:
 				return state;
 		}
@@ -31,8 +31,8 @@ const ExpensesContextProvider = ({ children }) => {
 		dispatch({ type: 'ADD', payload: expenseData });
 	};
 
-	const deleteExpense = id => {
-		dispatch({ type: 'DELETE', payload: id });
+	const deleteExpense = expenseId => {
+		dispatch({ type: 'DELETE', payload: expenseId });
 	};
 
 	const value = {

@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { ExpensesContext } from '../../store/expenses-context';
+import { Text, View, StyleSheet, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import Animated, {
 	useSharedValue,
@@ -18,9 +18,8 @@ const ExpenseItem = ({
 	amount
 }) => {
 	const navigation = useNavigation();
-	const route = useRoute();
-	console.log(route);
-	const END_POSITION = -200;
+
+	const END_POSITION = -300;
 	const onRight = useSharedValue(true);
 	const position = useSharedValue(0);
 
@@ -48,7 +47,7 @@ const ExpenseItem = ({
 
 	return (
 		<View style={styles.expenseItemOuter}>
-			<EditButtons navigation={navigation} expenseId={expenseId} />
+			<EditButtons onNavigation={navigation} expenseId={expenseId} />
 			<GestureDetector gesture={panGesture}>
 				<Animated.View style={[styles.expenseItemInner, animatedStyle]}>
 					<View style={styles.expenseItemLeft}>
@@ -57,7 +56,7 @@ const ExpenseItem = ({
 					<View style={styles.expenseIemRight}>
 						<Text style={styles.expenseItemText}>{createdAt}</Text>
 						<Text style={styles.expenseItemText}>{quantity}</Text>
-						<Text style={styles.expenseItemText}>$ {amount}</Text>
+						<Text style={styles.expenseItemText}>$ {amount.toFixed(2)}</Text>
 					</View>
 				</Animated.View>
 			</GestureDetector>

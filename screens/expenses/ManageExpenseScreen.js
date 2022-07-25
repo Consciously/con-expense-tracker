@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { ExpensesContext } from '../../store/expenses-context';
 import ExpenseForm from '../../components/expenses/ExpenseForm';
 import { colors } from '../../utils/colors';
-import { storeExpense } from '../../utils/http';
+import { storeExpense, updateExpense } from '../../utils/http';
 import ErrorOverlay from '../../components/ui/ErrorOverlay';
 
 const ManageExpenseScreen = ({ route, navigation }) => {
@@ -26,7 +26,13 @@ const ManageExpenseScreen = ({ route, navigation }) => {
 
 	const submitHandler = async expenseData => {
 		if (isEditing) {
-			expenseCtx.updateExpense(selectedExpense.expenseId, expenseData);
+			try {
+				expenseCtx.updateExpense(selectedExpense.expenseId, expenseData);
+				await updateExpense(selectedExpense.expenseId, expenseData);
+				navigation.goBack();
+			} catch (error) {
+				setError(`${error.message} - Could not store expense`);
+			}
 		} else {
 			try {
 				expenseCtx.addExpense(expenseData);

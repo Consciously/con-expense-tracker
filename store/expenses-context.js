@@ -32,7 +32,7 @@ const ExpensesContextProvider = ({ children }) => {
 				const updatedExpenses = [...state];
 
 				updatedExpenses[updateableExpenseIndex] = updatedItem;
-				console.log(updatedExpenses);
+				return updatedExpenses;
 
 			default:
 				return state;

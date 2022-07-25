@@ -12,13 +12,13 @@ import { getDatabase } from 'firebase/database';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 const firebaseConfig = {
-	apiKey: 'AIzaSyBEMmwiR77HG5yP20rMGaUmtyw8s8AcmNk',
-	authDomain: 'con-expense-tracker.firebaseapp.com',
-	databaseURL: 'https://con-expense-tracker-default-rtdb.firebaseio.com',
-	projectId: 'con-expense-tracker',
-	storageBucket: 'con-expense-tracker.appspot.com',
-	messagingSenderId: '698672667977',
-	appId: '1:698672667977:web:97ea6de3ab6e23aae74e98'
+	apiKey: REACT_APP_API_KEY,
+	authDomain: REACT_APP_AUTH_DOMAIN,
+	databaseURL: REACT_APP_DATABASE_URL,
+	projectId: REACT_APP_PROJECT_ID,
+	storageBucket: REACT_APP_STORAGE_BUCKET,
+	messagingSenderId: REACT_APP_MESSAGING_SENDER_ID,
+	appId: REACT_APP_APP_ID
 };
 
 // Initialize Firebase

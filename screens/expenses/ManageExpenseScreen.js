@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ExpensesContext } from '../../store/expenses-context';
 import ExpenseForm from '../../components/expenses/ExpenseForm';
@@ -6,7 +6,17 @@ import { colors } from '../../utils/colors';
 import { storeExpense, updateExpense } from '../../utils/http';
 import ErrorOverlay from '../../components/ui/ErrorOverlay';
 
+import { db } from '../../utils/firebase-config';
+
 const ManageExpenseScreen = ({ route, navigation }) => {
+	useEffect(() => {
+		return onValue(ref(db, '/expenses'), querySnapshot => {
+			let data = querySnapshot.val() || {};
+			let expenseItems = { ...data };
+
+			console.log(expenseItems);
+		});
+	}, []);
 	const [error, setError] = useState();
 	const expenseCtx = useContext(ExpensesContext);
 	const expenseIdParam = route.params?.expenseId;

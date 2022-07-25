@@ -8,15 +8,14 @@ import moment from 'moment';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
 import { colors } from '../../utils/colors';
-import { storeExpense } from '../../utils/http';
 
-const AddExpenseFormik = () => {
-	const expensesCtx = useContext(ExpensesContext);
-	const navigation = useNavigation();
-	const cancelHandler = () => {
-		navigation.goBack();
-	};
-
+const ExpenseForm = ({
+	submitButtonLabel,
+	defaultValues,
+	onEditMode,
+	onCancel,
+	onSubmit
+}) => {
 	const submitHandler = async expenseValues => {
 		const formattedDate = moment().format('YYYY-MM-DD');
 
@@ -27,10 +26,7 @@ const AddExpenseFormik = () => {
 			createdAt: formattedDate
 		};
 
-		const id = await storeExpense(expenseData);
-		expensesCtx.addExpense({ ...expenseData, id });
-
-		navigation.goBack();
+		onSubmit(expenseData);
 	};
 
 	const ExpenseValidationSchema = Yup.object().shape({
@@ -46,7 +42,14 @@ const AddExpenseFormik = () => {
 
 	return (
 		<Formik
-			initialValues={{ description: '', quantity: '', amount: '' }}
+			initialValues={{
+				description:
+					defaultValues && onEditMode ? defaultValues.description : '',
+				quantity:
+					defaultValues && onEditMode ? defaultValues.quantity.toString() : '',
+				amount:
+					defaultValues && onEditMode ? defaultValues.amount.toString() : ''
+			}}
 			validationSchema={ExpenseValidationSchema}
 			onSubmit={submitHandler}
 		>
@@ -101,7 +104,7 @@ const AddExpenseFormik = () => {
 							<Button
 								buttonColor='secondary'
 								buttonSize='large'
-								onPress={cancelHandler}
+								onPress={onCancel}
 							>
 								CANCEL
 							</Button>
@@ -110,7 +113,7 @@ const AddExpenseFormik = () => {
 								buttonSize='large'
 								onPress={handleSubmit}
 							>
-								ADD EXPENSE
+								{submitButtonLabel} EXPENSE
 							</Button>
 						</View>
 					</ScrollView>
@@ -120,7 +123,7 @@ const AddExpenseFormik = () => {
 	);
 };
 
-export default AddExpenseFormik;
+export default ExpenseForm;
 
 const styles = StyleSheet.create({
 	formContainer: {

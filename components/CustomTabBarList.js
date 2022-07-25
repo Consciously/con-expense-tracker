@@ -19,7 +19,7 @@ const CustomTabBarList = () => {
 				navigation.navigate('Expenses');
 				break;
 			case 'add':
-				navigation.navigate('AddExpense');
+				navigation.navigate('ManageExpense');
 				break;
 			default:
 				break;

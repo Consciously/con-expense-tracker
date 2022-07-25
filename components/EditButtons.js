@@ -9,12 +9,12 @@ const EditButtons = ({ onNavigation, expenseId }) => {
 					buttonColor='secondary'
 					buttonSize='medium'
 					onPress={() =>
-						onNavigation.navigate('AddExpense', {
+						onNavigation.navigate('ManageExpense', {
 							expenseId
 						})
 					}
 				>
-					Edit
+					UPDATE
 				</Button>
 			</View>
 

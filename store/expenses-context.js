@@ -4,7 +4,8 @@ export const ExpensesContext = createContext({
 	expenses: [],
 	setExpenses: expenses => {},
 	addExpense: expenseData => {},
-	deleteExpense: id => {}
+	deleteExpense: id => {},
+	updateExpense: (id, expenseData) => {}
 });
 
 const ExpensesContextProvider = ({ children }) => {
@@ -16,6 +17,23 @@ const ExpensesContextProvider = ({ children }) => {
 				return [...state, action.payload];
 			case 'DELETE':
 				return state.filter(expense => expense.expenseId !== action.payload);
+			case 'UPDATE':
+				const updateableExpenseIndex = state.findIndex(
+					expense => expense.expenseId === action.payload.expenseId
+				);
+
+				const updateableExpense = state[updateableExpenseIndex];
+
+				const updatedItem = {
+					...updateableExpense,
+					...action.payload.expenseData
+				};
+
+				const updatedExpenses = [...state];
+
+				updatedExpenses[updateableExpenseIndex] = updatedItem;
+				console.log(updatedExpenses);
+
 			default:
 				return state;
 		}
@@ -35,11 +53,16 @@ const ExpensesContextProvider = ({ children }) => {
 		dispatch({ type: 'DELETE', payload: expenseId });
 	};
 
+	const updateExpense = (expenseId, expenseData) => {
+		dispatch({ type: 'UPDATE', payload: { expenseId, expenseData } });
+	};
+
 	const value = {
 		expenses: expensesState,
 		setExpenses,
 		addExpense,
-		deleteExpense
+		deleteExpense,
+		updateExpense
 	};
 	return (
 		<ExpensesContext.Provider value={value}>

@@ -1,13 +1,11 @@
-import { useContext } from 'react';
-import { ExpensesContext } from '../../store/expenses-context';
-import { useNavigation } from '@react-navigation/native';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
+import { Timestamp } from 'firebase/firestore/lite';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import moment from 'moment';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
 import { colors } from '../../utils/colors';
+import { getFormattedDate } from '../../utils/date';
 
 const ExpenseForm = ({
 	submitButtonLabel,
@@ -17,13 +15,11 @@ const ExpenseForm = ({
 	onSubmit
 }) => {
 	const submitHandler = async expenseValues => {
-		const formattedDate = moment().format('YYYY-MM-DD');
-
 		const expenseData = {
 			description: expenseValues.description,
 			quantity: +expenseValues.quantity,
 			amount: +expenseValues.amount,
-			createdAt: formattedDate
+			createdAt: getFormattedDate(Timestamp.fromDate(new Date()).toDate())
 		};
 
 		onSubmit(expenseData);

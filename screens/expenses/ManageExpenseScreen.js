@@ -1,10 +1,11 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { ExpensesContext } from '../../store/expenses-context';
 import ExpenseForm from '../../components/expenses/ExpenseForm';
 import { colors } from '../../utils/colors';
 import { storeExpense, updateExpense } from '../../utils/http';
+import { addExpense } from '../../utils/firebase-crud';
 import ErrorOverlay from '../../components/ui/ErrorOverlay';
 
 const ManageExpenseScreen = ({ route, navigation }) => {
@@ -36,8 +37,9 @@ const ManageExpenseScreen = ({ route, navigation }) => {
 			}
 		} else {
 			try {
+				await addExpense(expenseData);
 				expenseCtx.addExpense(expenseData);
-				await storeExpense(expenseData);
+
 				navigation.goBack();
 			} catch (error) {
 				setError(`${error.message} - Could not store expense`);

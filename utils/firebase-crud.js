@@ -1,5 +1,5 @@
 import { db } from './firebase-config';
-import { collection, getDocs } from 'firebase/firestore/lite';
+import { collection, getDocs, addDoc } from 'firebase/firestore/lite';
 import { getFormattedDate } from './date';
 
 export const getExpenses = async () => {
@@ -15,4 +15,10 @@ export const getExpenses = async () => {
 	}));
 
 	return expenseList;
+};
+
+export const addExpense = async expenseData => {
+	const expense = await addDoc(collection(db, 'expenses'), expenseData);
+
+	return expense;
 };

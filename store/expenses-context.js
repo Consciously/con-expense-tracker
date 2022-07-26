@@ -12,7 +12,6 @@ const ExpensesContextProvider = ({ children }) => {
 	const expensesReducer = (state, action) => {
 		switch (action.type) {
 			case 'SET':
-				console.log(action.payload);
 				return action.payload;
 			case 'ADD':
 				return [...state, action.payload];

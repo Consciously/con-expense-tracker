@@ -1,5 +1,5 @@
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
-import { Timestamp } from 'firebase/firestore/lite';
+import { Timestamp } from 'firebase/firestore';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Button from '../ui/Button';

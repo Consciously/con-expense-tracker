@@ -4,7 +4,7 @@ import Layout from '../../components/ui/Layout';
 import ExpensesList from '../../components/expenses/ExpensesList';
 import LoadingOverlay from '../../components/ui/LoadingOverlay';
 import ErrorOverlay from '../../components/ui/ErrorOverlay';
-import { getExpenses } from '../../utils/firebase-crud';
+import { getExpenses } from '../../utils/firestore-crud';
 
 const ExpensesScreen = () => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -17,6 +17,7 @@ const ExpensesScreen = () => {
 			try {
 				const expenses = await getExpenses();
 				expensesCtx.setExpenses(expenses);
+				// console.log(expenses);
 				setIsLoading(false);
 			} catch (error) {
 				setError(

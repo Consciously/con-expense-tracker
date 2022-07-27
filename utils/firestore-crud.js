@@ -1,19 +1,24 @@
-import { collection, getDocs, addDoc } from 'firebase/firestore';
+import {
+	query,
+	collection,
+	onSnapshot,
+	addDoc,
+	deleteDoc,
+	doc
+} from 'firebase/firestore';
 import { db } from './firebase-config';
 
-import { getFormattedDate } from './date';
-
-export const getExpenses = async () => {
+export const getExpenses = () => {
 	const expenseColRef = collection(db, 'expenses');
 
-	const expensesSnapshot = await getDocs(expenseColRef);
-	return expensesSnapshot.docs.map(doc => ({
-		expenseId: doc.id,
-		amount: doc.data().amount,
-		// createdAt: doc.data().createdAt.toDate(),
-		description: doc.data().description,
-		quantity: doc.data().quantity
-	}));
+	const unsub = onSnapshot(expenseColRef, snapshot => {
+		snapshot.docs.map(doc => ({
+			...doc.data(),
+			expenseId: doc.id
+		}));
+	});
+
+	return () => unsub();
 };
 
 export const addExpense = async expenseData => {
@@ -21,6 +26,8 @@ export const addExpense = async expenseData => {
 	return addDoc(expenseColRef, { ...expenseData });
 };
 
-// export const deleteExpense = async () => {
-// 	return deleteDoc(doc(db, 'expenses'));
-// };
+export const deleteExpense = async expenseId => {
+	const expenseDocRef = doc(db, 'expenses', expenseId);
+
+	return deleteDoc(expenseDocRef);
+};

@@ -4,8 +4,8 @@ import { StyleSheet, View } from 'react-native';
 import { ExpensesContext } from '../../store/expenses-context';
 import ExpenseForm from '../../components/expenses/ExpenseForm';
 import { colors } from '../../utils/colors';
-import { storeExpense, updateExpense } from '../../utils/http';
-import { addExpense } from '../../utils/firestore-crud';
+import { updateExpense } from '../../utils/http';
+import { addExpense, getExpenses } from '../../utils/firestore-crud';
 import ErrorOverlay from '../../components/ui/ErrorOverlay';
 
 const ManageExpenseScreen = ({ route, navigation }) => {

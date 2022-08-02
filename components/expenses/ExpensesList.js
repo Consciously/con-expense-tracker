@@ -7,12 +7,12 @@ const renderExpenseItems = itemData => {
 	return <ExpenseItem {...itemData.item} />;
 };
 
-const ExpensesList = () => {
-	const expensesCtx = useContext(ExpensesContext);
+const ExpensesList = ({ expenses }) => {
+	// const expensesCtx = useContext(ExpensesContext);
 
 	return (
 		<FlatList
-			data={expensesCtx.expenses}
+			data={expenses}
 			renderItem={renderExpenseItems}
 			keyExtractor={item => item.expensesId}
 		/>

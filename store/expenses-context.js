@@ -29,8 +29,6 @@ const ExpensesContextProvider = ({ children }) => {
 
 	const expensesReducer = (action, state) => {
 		switch (action.type) {
-			case 'GET':
-				return action.payload;
 			default:
 				return state;
 		}
@@ -38,17 +36,12 @@ const ExpensesContextProvider = ({ children }) => {
 
 	const [expenses, dispatch] = useReducer(expensesReducer, []);
 
-	const getExpenses = expenses => {
-		console.log(expenses);
-		dispatch({ type: 'GET', payload: expenses });
-	};
 	const addExpense = expense => {};
 	const updateExpense = (expenseId, expense) => {};
 	const deleteExpense = expenseId => {};
 
 	const value = {
 		expenses: expensesData,
-		getExpenses,
 		addExpense,
 		updateExpense,
 		deleteExpense

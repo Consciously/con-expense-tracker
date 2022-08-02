@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { ExpensesContext } from '../../store/expenses-context';
+import { ExpensesContext } from '../../store/expenses-context-old';
 import { StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../utils/colors';
 import Button from '../../components/ui/Button';
@@ -25,8 +25,6 @@ const DeletionExpenseScreen = ({ navigation, route }) => {
 		setIsLoading(true);
 		try {
 			await deleteExpense(expenseIdParam);
-			expenseCtx.deleteExpense(expenseIdParam);
-
 			setIsLoading(false);
 			navigation.goBack();
 		} catch (error) {

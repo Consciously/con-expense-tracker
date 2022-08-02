@@ -1,4 +1,4 @@
-import { ExpensesContext } from '../../store/expenses-context';
+import { ExpensesContext } from '../../store/expenses-context-old';
 import { Text, View, StyleSheet, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';

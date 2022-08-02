@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ExpensesContext } from '../../store/expenses-context';
+import { ExpensesContext } from '../../store/expenses-context-old';
 import { StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../utils/colors';
 

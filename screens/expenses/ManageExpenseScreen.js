@@ -1,11 +1,11 @@
 import { useContext, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { ExpensesContext } from '../../store/expenses-context';
+import { ExpensesContext } from '../../store/expenses-context-old';
 import ExpenseForm from '../../components/expenses/ExpenseForm';
 import { colors } from '../../utils/colors';
-import { updateExpense } from '../../utils/http';
-import { addExpense, getExpenses } from '../../utils/firestore-crud';
+// import { updateExpense } from '../../utils/http';
+import { addExpense, updateExpense } from '../../utils/firestore-crud';
 import ErrorOverlay from '../../components/ui/ErrorOverlay';
 
 const ManageExpenseScreen = ({ route, navigation }) => {
@@ -29,8 +29,7 @@ const ManageExpenseScreen = ({ route, navigation }) => {
 	const submitHandler = async expenseData => {
 		if (isEditing) {
 			try {
-				expenseCtx.updateExpense(selectedExpense.expenseId, expenseData);
-				await updateExpense(selectedExpense.expenseId, expenseData);
+				await updateExpense(expenseData, selectedExpense.expenseId);
 				navigation.goBack();
 			} catch (error) {
 				setError(`${error.message} - Could not store expense`);
@@ -38,9 +37,6 @@ const ManageExpenseScreen = ({ route, navigation }) => {
 		} else {
 			try {
 				await addExpense(expenseData);
-
-				expenseCtx.addExpense(expenseData);
-
 				navigation.goBack();
 			} catch (error) {
 				setError(`${error.message} - Could not store expense`);

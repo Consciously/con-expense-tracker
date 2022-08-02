@@ -1,4 +1,4 @@
-import { ExpensesContext } from '../../store/expenses-context';
+import { ExpensesContext } from '../../store/expenses-context-old';
 import { Pressable, Text, StyleSheet } from 'react-native';
 import { colors } from '../../utils/colors';
 

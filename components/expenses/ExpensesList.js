@@ -1,16 +1,20 @@
-import { FlatList } from 'react-native';
+import { useContext } from 'react';
+import { ExpensesContext } from '../../store/expenses-context';
+import { FlatList, View } from 'react-native';
 import ExpenseItem from './ExpenseItem';
 
 const renderExpenseItems = itemData => {
 	return <ExpenseItem {...itemData.item} />;
 };
 
-const ExpensesList = ({ expensesData }) => {
+const ExpensesList = ({ expenses }) => {
+	// const expensesCtx = useContext(ExpensesContext);
+
 	return (
 		<FlatList
-			data={expensesData}
+			data={expenses}
 			renderItem={renderExpenseItems}
-			keyExtractor={(_, idx) => idx}
+			keyExtractor={item => item.expensesId}
 		/>
 	);
 };

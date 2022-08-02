@@ -1,12 +1,14 @@
 import { useContext, useState } from 'react';
-import { ExpensesContext } from '../../store/expenses-context';
+import { ExpensesContext } from '../../store/expenses-context-old';
 import { StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../utils/colors';
 import Button from '../../components/ui/Button';
-import { deleteExpense } from '../../utils/http';
+import { deleteExpense } from '../../utils/firestore-crud';
 import ErrorOverlay from '../../components/ui/ErrorOverlay';
+import LoadingOverlay from '../../components/ui/LoadingOverlay';
 
 const DeletionExpenseScreen = ({ navigation, route }) => {
+	const [isLoading, setIsLoading] = useState();
 	const [error, setError] = useState();
 	const expenseIdParam = route.params?.expenseId;
 	const expenseCtx = useContext(ExpensesContext);
@@ -20,18 +22,24 @@ const DeletionExpenseScreen = ({ navigation, route }) => {
 	};
 
 	const deleteHandler = async () => {
+		setIsLoading(true);
 		try {
-			expenseCtx.deleteExpense(selectedExpense.expenseId);
-			deleteExpense(selectedExpense.expenseId);
+			await deleteExpense(expenseIdParam);
+			setIsLoading(false);
 			navigation.goBack();
 		} catch (error) {
 			setError(`${error.message} - Cannot delete expense`);
+			setIsLoading(false);
 		}
 	};
 
 	const errorHandler = () => {
 		setError(null);
 	};
+
+	if (isLoading) {
+		return <LoadingOverlay />;
+	}
 
 	if (error && !isLoading) {
 		return <ErrorOverlay message={error} onConfirm={errorHandler} />;

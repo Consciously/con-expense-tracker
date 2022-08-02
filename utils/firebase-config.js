@@ -8,7 +8,7 @@ import {
 	REACT_APP_APP_ID
 } from '@env';
 import { initializeApp } from 'firebase/app';
-import { getDatabase } from 'firebase/database';
+import { getFirestore } from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 const firebaseConfig = {
@@ -23,6 +23,5 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
 
-export { db };
+export const db = getFirestore(app);

@@ -1,49 +1,46 @@
-import { useContext, useEffect, useState } from 'react';
-import { ref, onValue } from 'firebase/database';
+import { useContext, useState, useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { ExpensesContext } from '../../store/expenses-context';
 import Layout from '../../components/ui/Layout';
 import ExpensesList from '../../components/expenses/ExpensesList';
 import LoadingOverlay from '../../components/ui/LoadingOverlay';
 import ErrorOverlay from '../../components/ui/ErrorOverlay';
-import { db } from '../../utils/firebase-config';
+import { colors } from '../../utils/colors';
 
 const ExpensesScreen = () => {
-	const [isLoading, setIsLoading] = useState(true);
+	const [expenses, setExpenses] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState();
+
 	const expensesCtx = useContext(ExpensesContext);
 
 	useEffect(() => {
-		setIsLoading(true);
-		const getExpenses = () => {
-			try {
-				onValue(ref(db, '/expenses'), querySnapshot => {
-					const data = querySnapshot.val() || {};
-					const expensesData = { ...data };
-
-					const expenses = [];
-
-					for (const key in expensesData) {
-						const expensesObj = {
-							expenseId: key,
-							description: expensesData[key].description,
-							createdAt: expensesData[key].createdAt,
-							amount: expensesData[key].amount,
-							quantity: expensesData[key].quantity
-						};
-
-						expenses.push(expensesObj);
-					}
-
-					expensesCtx.setExpenses(expenses);
-					setIsLoading(false);
-				});
-			} catch (error) {
-				setError(`${error.message} - Cannot fetch expenses from database`);
-				setIsLoading(false);
-			}
-		};
-		getExpenses();
+		setExpenses(expensesCtx.expenses);
 	}, []);
+
+	console.log(expenses);
+
+	// let content = '';
+
+	// if (expenses && expenses.length === 0) {
+	// 	content = `<View style={styles.errorOverlay}>
+	// 			<Text style={[styles.emptyText, styles.emptyTitle]}>Ooooops</Text>
+	// 			<Text style={styles.emptyText}>No Expenses found!</Text>
+	// 		</View>`;
+	// 	setIsLoading(false);
+	// }
+
+	// if (expenses && expenses.length > 0) {
+	// 	content = `<Layout>
+	// 	<ExpensesList expenses={expenses} />
+	// </Layout>`;
+	// 	setIsLoading(false);
+	// }
+
+	// if (!expenses) {
+	// 	setError('Could not retrieve expenses from database');
+	// 	setIsLoading(false);
+	// }
 
 	const errorHandler = () => {
 		setError(null);
@@ -59,9 +56,28 @@ const ExpensesScreen = () => {
 
 	return (
 		<Layout>
-			<ExpensesList expensesData={expensesCtx.expenses} />
+			<ExpensesList expenses={expenses} />
 		</Layout>
 	);
 };
 
 export default ExpensesScreen;
+
+const styles = StyleSheet.create({
+	emptyOverlay: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: colors.primaryShades.primary100,
+		padding: 24
+	},
+	emptyText: {
+		color: colors.primaryShades.primary800,
+		marginBottom: 16,
+		textAlign: 'center'
+	},
+	emptyTitle: {
+		fontSize: 24,
+		fontWeight: 'bold'
+	}
+});
